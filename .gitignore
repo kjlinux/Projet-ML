@@ -1,0 +1,9 @@
+# Ignorer l'environnement virtuel Python
+venv/
+# ou, pour être plus sûr, si ton venv peut être à différents niveaux :
+**/venv/
+
+# Ignorer les datasets
+datasets/
+# ou tous les dossiers nommés datasets n'importe où :
+**/datasets/
