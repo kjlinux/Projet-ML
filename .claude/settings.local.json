@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(findstr:*)",
+      "Bash(python:*)",
+      "Bash(del fix_notebook.py)",
+      "Bash(python3:*)",
+      "Bash(ls:*)",
+      "Bash(dir:*)",
+      "Bash(del \"c:\\Users\\GHOST\\Documents\\Projet ML\\fix_notebook.py\")",
+      "Bash(cat:*)",
+      "Bash(del:*)",
+      "Bash(del add_learning_curves.py)",
+      "Bash(del improve_residuals_and_xgboost.py)",
+      "Bash(del final_fixes.py)",
+      "Bash(iconv:*)",
+      "Bash(powershell -Command:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

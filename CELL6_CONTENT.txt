@@ -1,0 +1,55 @@
+CELL 6 - MONT-TTC CONVERSION LOGIC:
+================================================================================
+# Create working copy
+df = df_combined.copy()
+
+# Parse date columns
+date_columns = ['DATE-FACT', 'DATE-ABON', 'DATE-RESIL', 'DATE-REGLT', 'DATE-REGLT-ENC']
+for col in date_columns:
+    df[col] = pd.to_datetime(df[col], errors='coerce')
+
+# Convert all numeric columns to proper types
+# Handle European number format (comma as decimal separator in scientific notation)
+def convert_to_numeric(series, col_name=None):
+    '''Convert string numbers to float, handling European format like "1,910868E+07"'''
+    if col_name and col_name in df.columns:
+        # Debug info for problematic columns
+        if col_name == 'MONT-TTC':
+            print(f"\nDEBUG {col_name}:")
+            print(f"  Original dtype: {series.dtype}")
+            print(f"  Sample values: {series.head(10).tolist()}")
+            print(f"  Unique sample: {series.unique()[:5].tolist() if len(series.unique()) <= 5 else series.unique()[:5].tolist()}")
+
+    if series.dtype == object:  # Only process string columns
+        # Replace comma with dot for decimal separator
+        series = series.astype(str).str.replace(',', '.', regex=False)
+        # Also handle potential whitespace
+        series = series.str.strip()
+
+    result = pd.to_numeric(series, errors='coerce')
+
+    if col_name:
+        non_null_before = series.notna().sum() if hasattr(series, 'notna') else len(series)
+        non_null_after = result.notna().sum()
+        if non_null_after < non_null_before * 0.5:  # Lost more than 50% of data
+            print(f"\n⚠️ WARNING: {col_name} conversion issue!")
+            print(f"  Before: {non_null_before} non-null, After: {non_null_after} non-null")
+
+    return result
+
+numeric_columns = ['CUBCONS', 'DIAM', 'MONT-TTC', 'CUBFAC', 'MONT-FDE',
+                   'NB-IMP', 'MONT-IMP', 'V-POURCENT', 'MONT-SOD', 'MONT-TVA',
+                   'MONT-ENCAISSE', 'MONT-ENCAISSE-ENC', 'MONT-FNE', 'MONT-ASS-TTC',
+                   'MONT-FRAIS-CPT']
+
+for col in numeric_columns:
+    if col in df.columns:
+        df[col] = convert_to_numeric(df[col], col_name=col)
+
+print("\nDate columns parsed successfully")
+print("Numeric columns converted to proper types")
+print(f"\nSummary of key columns:")
+for col in ['MONT-TTC', 'MONT-FDE', 'CUBCONS', 'DIAM']:
+    if col in df.columns:
+        print(f"  {col}: dtype={df[col].dtype}, non-null={df[col].notna().sum()}/{len(df)}")
+================================================================================

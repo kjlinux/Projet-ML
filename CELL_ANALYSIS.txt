@@ -1,0 +1,28 @@
+WATER IA ML PROJECT - NOTEBOOK STRUCTURE ANALYSIS
+================================================================================
+
+CRITICAL BUG - CELL 35
+--------------------------------------------------------------------------------
+Location: Classification Models section
+Execution Count: 29
+Problem: feature_cols_clf includes MONT-TTC which has all NaN values
+Result: X_clf becomes empty DataFrame
+
+FIX: Remove MONT-TTC from the feature list
+
+BEFORE (buggy):
+  feature_cols_clf includes: MONT-TTC
+
+AFTER (fixed):
+  feature_cols_clf without: MONT-TTC
+
+================================================================================
+
+CELLS TO MODIFY:
+
+Cell 35: Remove MONT-TTC from feature_cols_clf list
+Cell 24+: Add correlation matrix and VIF analysis
+Cell 27+: Add learning curves for Ridge regression
+Cell 28+: Add learning curves for Lasso regression
+Cell 33: Enhance residual analysis
+Cell 40: Add early stopping to XGBoost
