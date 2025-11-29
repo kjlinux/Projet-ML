@@ -14,7 +14,10 @@
       "Bash(del improve_residuals_and_xgboost.py)",
       "Bash(del final_fixes.py)",
       "Bash(iconv:*)",
-      "Bash(powershell -Command:*)"
+      "Bash(powershell -Command:*)",
+      "Bash(git checkout:*)",
+      "Bash(pip show:*)",
+      "Bash(C:UsersGHOSTDocumentsProjet MLvenvScriptspython.exe -m pip show spacy pydantic)"
     ],
     "deny": [],
     "ask": []
